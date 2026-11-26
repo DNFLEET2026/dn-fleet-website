@@ -176,6 +176,7 @@ footer {
     border-bottom: 2px solid #d6ad45;
 }
 
+
 .bridge-nav a {
     width: 105px;
     height: 105px;
@@ -184,22 +185,50 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 7px;
+
     border-radius: 50%;
-    border: 4px solid #d6ad45;
-    background: radial-gradient(circle, #244563, #07182b);
-    color: #f5d77e;
+    border: 8px solid #b8862b;
+
+    background:
+        radial-gradient(circle at 50% 9%, #fff0b3 0 2px, #8a5a12 3px, transparent 5px),
+        radial-gradient(circle at 91% 50%, #fff0b3 0 2px, #8a5a12 3px, transparent 5px),
+        radial-gradient(circle at 50% 91%, #fff0b3 0 2px, #8a5a12 3px, transparent 5px),
+        radial-gradient(circle at 9% 50%, #fff0b3 0 2px, #8a5a12 3px, transparent 5px),
+        radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.35), transparent 40%),
+        radial-gradient(circle, #244563, #07182b);
+
+    color: #ffd778;
     text-decoration: none;
     font-weight: bold;
     font-size: 13px;
-    box-shadow: 0 0 12px rgba(214, 173, 69, 0.35),
-                inset 0 0 12px rgba(214, 173, 69, 0.2);
-    transition: all 0.3s ease;
+
+    box-shadow:
+        0 0 0 2px #f5d778,
+        0 0 0 5px #704817,
+        inset 0 0 8px rgba(255,255,255,0.25),
+        inset 0 0 18px #000,
+        0 5px 18px rgba(214,173,69,0.45);
+
+    transition: all 0.35s ease;
 }
 
 .bridge-nav a:hover {
-    transform: scale(1.12);
-    background: radial-gradient(circle, #496b88, #102c46);
-    box-shadow: 0 0 25px #d6ad45;
+    transform: scale(1.10);
+
+    background:
+        radial-gradient(circle at 50% 9%, #fff8d5 0 2px, #b8862b 3px, transparent 5px),
+        radial-gradient(circle at 91% 50%, #fff8d5 0 2px, #b8862b 3px, transparent 5px),
+        radial-gradient(circle at 50% 91%, #fff8d5 0 2px, #b8862b 3px, transparent 5px),
+        radial-gradient(circle at 9% 50%, #fff8d5 0 2px, #b8862b 3px, transparent 5px),
+        radial-gradient(ellipse at 35% 25%, rgba(255,255,255,0.5), transparent 40%),
+        radial-gradient(circle, #496b88, #102c46);
+
+    box-shadow:
+        0 0 0 2px #fff0a0,
+        0 0 0 5px #b8862b,
+        0 0 30px #f5d778,
+        inset 0 0 15px rgba(255,255,255,0.3);
+
 }
 
 .porthole-icon {

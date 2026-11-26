@@ -158,7 +158,66 @@ footer {
   .hero h1 {
     font-size: 32px;
   }
+} 
+/* =================================
+   DN FLEET - KAPITAENSBRUECKE
+   Goldene Bullaugen-Navigation
+================================= */
+
+.bridge-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding: 30px 15px;
+    background: linear-gradient(135deg, #07182b, #102c46);
+    border-top: 2px solid #d6ad45;
+    border-bottom: 2px solid #d6ad45;
 }
+
+.bridge-nav a {
+    width: 105px;
+    height: 105px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border-radius: 50%;
+    border: 4px solid #d6ad45;
+    background: radial-gradient(circle, #244563, #07182b);
+    color: #f5d77e;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    box-shadow: 0 0 12px rgba(214, 173, 69, 0.35),
+                inset 0 0 12px rgba(214, 173, 69, 0.2);
+    transition: all 0.3s ease;
+}
+
+.bridge-nav a:hover {
+    transform: scale(1.12);
+    background: radial-gradient(circle, #496b88, #102c46);
+    box-shadow: 0 0 25px #d6ad45;
+}
+
+.porthole-icon {
+    font-size: 28px;
+}
+
+@media (max-width: 600px) {
+    .bridge-nav {
+        gap: 12px;
+    }
+
+    .bridge-nav a {
+        width: 85px;
+        height: 85px;
+        font-size: 11px;
+    }
+}
+
 </style>
 </head>
 

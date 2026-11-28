@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DN FLEET – Produktverwaltung</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 25px;
+  background: #07182b;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: #102c46;
+  border: 2px solid #d6ad45;
+  border-radius: 15px;
+  padding: 25px;
+}
+h1, h2 { color: #d6ad45; }
+label { display: block; margin-top: 15px; }
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 7px;
+  border: 1px solid #d6ad45;
+  background: #07182b;
+  color: white;
+}
+button {
+  padding: 12px 20px;
+  margin-top: 18px;
+  border: 0;
+  border-radius: 7px;
+  background: #d6ad45;
+  color: #07182b;
+  font-weight: bold;
+  cursor: pointer;
+}
+.product {
+  border: 1px solid #d6ad45;
+  border-radius: 9px;
+  padding: 15px;
+  margin-top: 15px;
+}
+.product button { margin-right: 8px; }
+.small { color: #d6ad45; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>⚓ DN FLEET – Produktverwaltung</h1>
+  <p>Produkte erfassen und verwalten</p>
+
+  <h2>Neues Produkt anlegen</h2>
+
+  <form id="productForm">
+    <label>Produktname</label>
+    <input id="name" required placeholder="Name des Produkts">
+
+    <label>Produktkategorie</label>
+    <select id="category">
+      <option>Küche & Genuss</option>
+      <option>Gesundheit & Wellness</option>
+      <option>Haushalt & Wohnen</option>
+      <option>Technik & Elektronik</option>
+      <option>Freizeit & Hobby</option>
+      <option>Weitere Produkte</option>
+    </select>
+
+    <label>Produktbeschreibung</label>
+    <textarea id="description" rows="3" placeholder="Beschreibung eingeben"></textarea>
+
+    <label>Verkaufspreis in Euro</label>
+    <input id="price" type="number" min="0" step="0.01" placeholder="z. B. 29.90">
+
+    <label>PV-Wert</label>
+    <input id="pv" type="number" min="0" step="1" placeholder="Wird vom Administrator festgelegt">
+
+    <label>Bilddatei oder Bildpfad</label>
+    <input id="image" placeholder="z. B. bilder/produkt.png">
+
+    <button type="submit">Produkt speichern</button>
+  </form>
+
+  <h2>Gespeicherte Produkte</h2>
+  <div id="productList"></div>
+</div>
+
+<script>
+let products = JSON.parse(localStorage.getItem("dnProducts") || "[]");
+
+function showProducts() {
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
+
+  products.forEach((product, index) => {
+    const item = document.createElement("div");
+    item.className = "product";
+
+    const title = document.createElement("h3");
+    title.textContent = product.name;
+
+    const category = document.createElement("p");
+    category.textContent = product.category;
+
+    const description = document.createElement("p");
+    description.textContent = product.description;
+
+    const details = document.createElement("p");
+    details.className = "small";
+    details.textContent =
+      "Preis: " + (product.price ? product.price + " €" : "Noch offen") +
+      " | PV: " + (product.pv || "Noch offen");
+
+    const edit = document.createElement("button");
+    edit.textContent = "Bearbeiten";
+    edit.onclick = () => editProduct(index);
+
+    const remove = document.createElement("button");
+    remove.textContent = "Löschen";
+    remove.onclick = () => deleteProduct(index);
+
+    item.append(title, category, description, details, edit, remove);
+    list.appendChild(item);
+  });
+
+  if (products.length === 0) {
+    list.textContent = "Noch keine Produkte angelegt.";
+  }
+}
+
+document.getElementById("productForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  products.push({
+    name: document.getElementById("name").value,
+    category: document.getElementById("category").value,
+    description: document.getElementById("description").value,
+    price: document.getElementById("price").value,
+    pv: document.getElementById("pv").value,
+    image: document.getElementById("image").value
+  });
+
+  localStorage.setItem("dnProducts", JSON.stringify(products));
+  this.reset();
+  showProducts();
+});
+
+function deleteProduct(index) {
+  if (confirm("Produkt wirklich löschen?")) {
+    products.splice(index, 1);
+    localStorage.setItem("dnProducts", JSON.stringify(products));
+    showProducts();
+  }
+}
+
+function editProduct(index) {
+  const product = products[index];
+  document.getElementById("name").value = product.name;
+  document.getElementById("category").value = product.category;
+  document.getElementById("description").value = product.description;
+  document.getElementById("price").value = product.price;
+  document.getElementById("pv").value = product.pv;
+  document.getElementById("image").value = product.image;
+
+  products.splice(index, 1);
+  localStorage.setItem("dnProducts", JSON.stringify(products));
+  showProducts();
+}
+
+showProducts();
+</script>
+</body>
+</html>
